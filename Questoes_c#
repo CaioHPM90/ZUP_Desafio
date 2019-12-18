@@ -1,0 +1,192 @@
+// Questao 1
+
+public bool returnPalindromo(string palavra) // - Funcao que retorna boolean
+{
+	bool isPalindromo; // - Variavel que recebe o valor caso seja palindrome
+	char[] arr = palavra.toCharArray(0,palavra.length) // - CharArray com as letras da palavra
+	string esquerda_direita = ""; // - Variavel da palavra lida da esquerda para a direita 
+	string direita_esquerda = ""; // - Variavel da palavra lida da direita para a esquerda
+	for(int i = 0; i < arr.length; i++) // - for para alimentar a variavel
+	{
+		esquerda_direita = esquerda_direita + arr[i];
+	}
+	for(int a = 0; a < arr.length; a++) // - for para alimentar a variavel
+	{
+		direita_esquerda = direita_esquerda + arr[arr.length - a];
+	}
+    
+	if(esquerda_direita == direita_esquerda) // - se as 2 forem iguais retorna true
+	{
+		isPalindromo = true;
+	}
+	else{
+		isPalindromo = false; // - senao false
+	}
+	return isPalindromo; // retorno
+}
+
+// Questao 2
+
+public string retornaEspacoBinario(int N){
+	
+	List<int> espacosbinarios = new List<int>();
+	int binario = 0;
+	string result = "";
+	if(N/2 >= 1)
+	{
+		binario = Convert.toString(N % 2) + binario;
+		N = N/2;
+	}
+	binario = Convert.ToString(N) + binario;
+	char[] arr = binario.toCharArray(0, binario.length);
+	int quantidade_de_1 = 0;
+	for(int i = 0; i<arr.length; i++){
+	{
+		if(arr[i] == 1)
+		{
+			quantidade_de_1++;
+		}			
+	}
+	if(quantidade_de_1 != 1 && quantidade_de_1 != arr.length)
+	{
+		for(int pos = 1; pos < arr.length; pos++){
+			if(arr[pos] == 0)
+			{
+				int pos0 = 0;
+				while(arr[pos + pos0] != 1)
+				{
+					pos0++;
+				}
+				espacosbinarios.Add(pos0);
+			}
+		}
+	}
+	int[] espacosbinarios_array = espacosbinarios.toArray();
+	
+	if(espacosbinarios_array.length > 1)
+	{
+		for(int elem = 0; elem < espacosbinarios_array.length; elem++)
+		{
+			result = "Espaco binario " + elem + ": " + espacosbinarios_array[elem];
+		}
+		else{
+			result = "Espaco binario 1: " espacosbinarios_array[0];
+		}
+	}
+	
+	return result;
+}
+
+// Questao 3
+
+public int is_permutacao(int[] arr)
+{
+	int maior = 0; // Variavel de maior valor dentro da array
+	int founded_repeticao = 0; // Variavel que testa se existe repeticao de numeros dentro da array
+	int founded_permutacao = 0; // Variavel que testa se todos os elementos em ordem existem na array
+	int status; // Variavel de status caso seja permutacao
+	
+	for(int i = 0; i < arr.length; i++) // Percorrendo cada elemento da array
+	{
+		for(int found = 0; found < arr.length; found++) // para cada elemento da array checar se ele aparece denovo na array
+		{
+			if(arr[i] == arr[found])
+			{
+				founded_repeticao++; // caso apareca, a variavel é incrementada
+			}
+		}
+		
+		if(founded_repeticao == 1) // somente se a variavel for 1 a variavel maior tem valor assim podendo ser testada
+		{
+			if(i != arr.length){
+			 if(arr[i] > arr[i + 1])
+			{
+				maior = arr[i];
+			}
+			else{
+				maior = arr[i + 1];
+			}
+		}
+		}	
+	}
+	for(int c = 0; c < maior; c++) // um laco de repeticao dentro do range do maior valor, checando se todos os valores existem na array
+	{
+		foreach(value in arr){
+			if(value == c)
+			{
+				founded_permutacao++;
+			}
+		}			
+	}
+	
+	if(founded_permutacao = maior) // caso sejam encontrados os mesmos numeros, sem repeticao e permutados, retornar 1
+	{
+		status = 1;
+	}
+	
+	return status;
+	
+}
+
+// Questao 4
+
+public int distintos(int[] arr){
+	
+	int[] arr_sem_repetidos = new int[arr.length]; // array sem numeros repetidos
+	int match = 0;
+	int distintos = 0;
+	for(int i = 0; int i < arr.length; i++){ // percorre a array do parametro
+		
+		for(int count = 0; count < arr.length; count++) // encontra os numeros repetidos
+		{
+			if(arr[i] == arr[count])
+			{
+				match++;
+			}
+		}
+		if(match > 1 && arr_sem_repetidos.contains(arr[i]) == false) // se o numero da posicao da array aparece mais de 1 vez e se ele ainda nao esta na array de nao repetidos, adiciona-se
+		{
+			arr_sem_repetidos[i] = arr[i];
+		}
+		else if(match == 1 && arr_sem_repetidos.contains(arr[i]) == false){ // se ele aparece 1 vez tambem
+			arr_sem_repetidos[i] = arr[i];
+		}
+			
+	}
+	for(int dist_count = 0; dist_count < arr.length; dist_count++) // percorre a array de nao repetidos e incrementa no numero de distintos
+	{
+		if(arr_sem_repetidos[0] != arr_sem_repetidos[dist_count])
+		{
+			distintos++;
+		}
+	}
+	}
+	return distintos;
+}
+
+// Questao 5
+
+public string acoes(int[] arr)
+{
+	int[] array_ganhos = new int[arr.length]; // array de ganhos
+	int maior_ganho = 0; // variavel de maior ganho 
+	for(int i = 0; i < arr.length; i++) // percorrer array de acoes
+	{
+		for(int count = 1; count < arr.length; count++){
+			
+			if(arr[i] - arr[count] > 0){
+				array_ganhos = arr[i] - arr[count]; // array de ganhos possiveis
+			}
+		}
+		
+	}
+	for(int i = 0; i < array_ganhos; i++) // percorrendo a array dos ganhos
+	{
+		for(int pos = 0; pos < array_ganhos.length; pos++){
+			if(arr[i] > arr[pos]){
+				maior_ganho = arr[i]; // setando o maior ganho
+			}
+		}
+	}
+	return maior_ganho;
+}
